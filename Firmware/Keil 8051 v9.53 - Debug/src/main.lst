@@ -1,0 +1,131 @@
+C51 COMPILER V9.60.0.0   MAIN                                                              07/15/2021 10:43:58 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\src\main.OBJ
+COMPILER INVOKED BY: c:\SiliconLabs\SimplicityStudio\v4\developer\toolchains\keil_8051\9.60\BIN\C51.exe C:\Users\Pedro\G
+                    -oogle Drive\UNICAMP\Mestrado\Firmware\src\main.c OMF2 SMALL DEBUG OBJECTEXTEND ROM(LARGE) WARNINGLEVEL(2) FLOATFUZZY(3) 
+                    -OPTIMIZE(8,SPEED) INTVECTOR(0X0000) INTPROMOTE INCDIR(C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\lib\efm8sb1\
+                    -cslib\serial_interface;C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\lib\efm8sb1\cslib\serial_interface_inc;C:\U
+                    -sers\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\inc\config;C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\inc;C
+                    -:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Lib/efm8_capsense;C:/SiliconLabs/SimplicityStudio/v4/devel
+                    -oper/sdks/8051/v4.1.7//Device/EFM8SB1/efm8_capsense/device_layer;C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/
+                    -v4.1.7//Device/shared/si8051Base;C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/EFM8SB1/inc;C:/Si
+                    -liconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/EFM8SB1/efm8_capsense/serial_interface) PRINT(.\src\mai
+                    -n.lst) COND PAGEWIDTH(120) PAGELENGTH(65) OBJECT(.\src\main.OBJ)
+
+line level    source
+
+   1          
+   2          //-----------------------------------------------------------------------------
+   3          // Includes
+   4          //-----------------------------------------------------------------------------
+   5          #include <SI_EFM8SB1_Register_Enums.h>                  // SFR declarations
+   6          #include "InitDevice.h"
+   7          // $[Generated Includes]
+   8          #include "cslib_config.h"
+*** WARNING C317 IN LINE 46 OF C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\inc\config\cslib_config.h: attempt 
+             -to redefine macro 'DEF_ACTIVE_MODE_PERIOD'
+*** WARNING C317 IN LINE 47 OF C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\inc\config\cslib_config.h: attempt 
+             -to redefine macro 'DEF_SLEEP_MODE_PERIOD'
+   9          #include "cslib.h"
+  10          #include "cslib_hwconfig.h"
+*** WARNING C317 IN LINE 6 OF C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\inc\config\cslib_hwconfig.h: attempt
+             - to redefine macro 'DEF_NUM_SENSORS'
+*** WARNING C317 IN LINE 72 OF C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\inc\config\cslib_hwconfig.h: attemp
+             -t to redefine macro 'ACTIVE_THRESHOLD_ARRAY'
+*** WARNING C317 IN LINE 83 OF C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\inc\config\cslib_hwconfig.h: attemp
+             -t to redefine macro 'INACTIVE_THRESHOLD_ARRAY'
+*** WARNING C317 IN LINE 94 OF C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\inc\config\cslib_hwconfig.h: attemp
+             -t to redefine macro 'AVERAGE_TOUCH_DELTA_ARRAY'
+  11          #include "profiler_interface.h"
+  12          #include "comm_routines.h"
+  13          
+  14          SI_SBIT (LED0, SFR_P0, 0);          // '1' means ON, '0' means OFF//
+  15          //SI_SBIT (BC_ENABLE, SFR_P0, 0);
+  16          SI_SBIT (LED1, SFR_P0, 1);
+  17          
+  18          uint8_t sensor_index;
+  19          uint16_t sensor_data;
+  20          uint16_t baseline[6];
+  21          uint16_t filtered_data;
+  22          SI_UU32_t expVal;
+  23          uint8_t byte = 0;
+  24          uint8_t serial_flag = 0;
+  25          
+  26          //-----------------------------------------------------------------------------
+  27          // main() Routine
+  28          // ----------------------------------------------------------------------------
+  29          int main (void){
+  30   1              //      BC_ENABLE = 0;
+  31   1              // Call hardware initialization routine
+  32   1              enter_DefaultMode_from_RESET();
+  33   1              P0 |= 0x01;
+  34   1              P0 &= 0xFE;
+  35   1              P2MDOUT |= 0x80;
+C51 COMPILER V9.60.0.0   MAIN                                                              07/15/2021 10:43:58 PAGE 2   
+
+  36   1              P2 &= ~0x80;
+  37   1              TCON_TF0 = 0;
+  38   1      
+  39   1              // Initializes the UART interface
+  40   1              CSLIB_commInit();
+  41   1      
+  42   1              // Configures all peripherals controlled by capsense, including
+  43   1              // the sensing block and port pins
+  44   1              CSLIB_initHardware();
+  45   1      
+  46   1              // Initializes the capsense variables and performs some scans to
+  47   1              // initialize the baselines
+  48   1              CSLIB_initLibrary();
+  49   1              serial_flag = 0;
+  50   1              SCON0_RI = 0;
+  51   1              while (1){
+  52   2                      LED1 = 0;
+  53   2                      // -----------------------------------------------------------------------------
+  54   2                      // Performs all scanning and data structure updates
+  55   2                      // -----------------------------------------------------------------------------
+  56   2                      CSLIB_update();
+  57   2                      // -----------------------------------------------------------------------------
+  58   2                      // If low power features are enabled, this will either put the device into a low
+  59   2                      // power state until it is time to take another scan, or put the device into a
+  60   2                      // low-power sleep mode if no touches are active
+  61   2                      // -----------------------------------------------------------------------------
+  62   2                      //CSLIB_lowPowerUpdate();
+  63   2                      if(SCON0_RI){
+  64   3                              if(SBUF0 == 'a'){
+  65   4                                      printHeader();
+*** WARNING C206 IN LINE 65 OF C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\src\main.c: 'printHeader': missing 
+             -function-prototype
+  66   4                                      //LED0 = 1;
+  67   4                              }
+  68   3                              CSLIB_commUpdate();
+  69   3                              LED0 = 1;
+  70   3                              serial_flag = 0;
+  71   3                              SCON0_RI = 0;
+  72   3                      }
+  73   2                      else{
+  74   3                              LED0 = 0;
+  75   3                      }
+  76   2         }                             
+  77   1      }
+  78          
+  79          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     60    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     23    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  7 WARNING(S),  0 ERROR(S)

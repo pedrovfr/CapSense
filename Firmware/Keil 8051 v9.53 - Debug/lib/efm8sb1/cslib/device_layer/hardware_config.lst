@@ -1,0 +1,96 @@
+C51 COMPILER V9.60.0.0   HARDWARE_CONFIG                                                   05/13/2020 14:41:05 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE HARDWARE_CONFIG
+OBJECT MODULE PLACED IN .\lib\efm8sb1\cslib\device_layer\hardware_config.OBJ
+COMPILER INVOKED BY: d:\SiliconLabs\SimplicityStudio\v4\developer\toolchains\keil_8051\9.60\BIN\C51.exe D:\SiliconLabs\S
+                    -implicityStudio\v4\developer\sdks\8051\v4.1.7\Device\EFM8SB1\efm8_capsense\device_layer\hardware_config.c OMF2 SMALL DEB
+                    -UG OBJECTEXTEND ROM(LARGE) WARNINGLEVEL(2) FLOATFUZZY(3) OPTIMIZE(8,SPEED) INTVECTOR(0X0000) INTPROMOTE INCDIR(C:\Users\
+                    -pedro\SimplicityStudio\v4_workspace\Pedro_proj2_2\lib\efm8sb1\cslib\serial_interface;C:\Users\pedro\SimplicityStudio\v4_
+                    -workspace\Pedro_proj2_2\lib\efm8sb1\cslib\serial_interface_inc;C:\Users\pedro\SimplicityStudio\v4_workspace\Pedro_proj2_
+                    -2\inc\config;C:\Users\pedro\SimplicityStudio\v4_workspace\Pedro_proj2_2\inc;D:/SiliconLabs/SimplicityStudio/v4/developer
+                    -/sdks/8051/v4.1.7//Lib/efm8_capsense;D:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/EFM8SB1/efm8_
+                    -capsense/device_layer;D:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/shared/si8051Base;D:/Silicon
+                    -Labs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/EFM8SB1/inc;D:/SiliconLabs/SimplicityStudio/v4/developer/sdk
+                    -s/8051/v4.1.7//Device/EFM8SB1/efm8_capsense/serial_interface) PRINT(.\lib\efm8sb1\cslib\device_layer\hardware_config.lst
+                    -) COND PAGEWIDTH(120) PAGELENGTH(65) OBJECT(.\lib\efm8sb1\cslib\device_layer\hardware_config.OBJ)
+
+line level    source
+
+   1          /**************************************************************************//**
+   2           * Copyright (c) 2015 by Silicon Laboratories Inc. All rights reserved.
+   3           *
+   4           * http://developer.silabs.com/legal/version/v11/Silicon_Labs_Software_License_Agreement.txt
+   5           *****************************************************************************/
+   6          
+   7          #include "cslib_hwconfig.h"
+*** WARNING C317 IN LINE 56 OF C:\Users\pedro\SimplicityStudio\v4_workspace\Pedro_proj2_2\inc\config\cslib_hwconfig.h: a
+             -ttempt to redefine macro 'ACTIVE_THRESHOLD_ARRAY'
+*** WARNING C317 IN LINE 63 OF C:\Users\pedro\SimplicityStudio\v4_workspace\Pedro_proj2_2\inc\config\cslib_hwconfig.h: a
+             -ttempt to redefine macro 'INACTIVE_THRESHOLD_ARRAY'
+*** WARNING C317 IN LINE 70 OF C:\Users\pedro\SimplicityStudio\v4_workspace\Pedro_proj2_2\inc\config\cslib_hwconfig.h: a
+             -ttempt to redefine macro 'AVERAGE_TOUCH_DELTA_ARRAY'
+   8          #include "hardware_routines.h"
+   9          #include "cslib_config.h"
+*** WARNING C317 IN LINE 46 OF C:\Users\pedro\SimplicityStudio\v4_workspace\Pedro_proj2_2\inc\config\cslib_config.h: att
+             -empt to redefine macro 'DEF_ACTIVE_MODE_PERIOD'
+*** WARNING C317 IN LINE 47 OF C:\Users\pedro\SimplicityStudio\v4_workspace\Pedro_proj2_2\inc\config\cslib_config.h: att
+             -empt to redefine macro 'DEF_SLEEP_MODE_PERIOD'
+  10          
+  11          /// @brief Derive thresholds at init based on config profile settings
+  12          idata uint16_t active_thresh[DEF_NUM_SENSORS];
+  13          idata uint16_t inactive_thresh[DEF_NUM_SENSORS];
+  14          
+  15          // Default values in a one-to-one mapping with the sensor node.  These values
+  16          // are copied into the sensor node entry for that sensor at startup.
+  17          SI_SEGMENT_VARIABLE (CSLIB_muxValues[DEF_NUM_SENSORS], uint8_t, SI_SEG_CODE) =
+  18          {
+  19            MUX_VALUE_ARRAY
+  20          };
+  21          // Default values in a one-to-one mapping with the sensor node.  These values
+  22          // are copied into the sensor node entry for that sensor at startup.
+  23          SI_SEGMENT_VARIABLE (CSLIB_gainValues[DEF_NUM_SENSORS], uint8_t, SI_SEG_CODE) =
+  24          {
+  25            GAIN_VALUE_ARRAY
+  26          };
+  27          
+  28          // Default values in a one-to-one mapping with the sensor node.  These values
+  29          // are copied into the sensor node entry for that sensor at startup.
+  30          SI_SEGMENT_VARIABLE (CSLIB_accumulationValues[DEF_NUM_SENSORS], uint8_t, SI_SEG_CODE) =
+  31          {
+  32            ACCUMULATION_VALUE_ARRAY
+  33          };
+  34          
+  35          SI_SEGMENT_VARIABLE (CSLIB_activeThreshold[DEF_NUM_SENSORS], uint8_t, SI_SEG_CODE) =
+  36          {
+C51 COMPILER V9.60.0.0   HARDWARE_CONFIG                                                   05/13/2020 14:41:05 PAGE 2   
+
+  37            ACTIVE_THRESHOLD_ARRAY
+  38          };
+  39          SI_SEGMENT_VARIABLE (CSLIB_inactiveThreshold[DEF_NUM_SENSORS], uint8_t, SI_SEG_CODE) =
+  40          {
+  41            INACTIVE_THRESHOLD_ARRAY
+  42          };
+  43          
+  44          SI_SEGMENT_VARIABLE (CSLIB_averageTouchDelta[DEF_NUM_SENSORS], uint8_t, SI_SEG_CODE) =
+  45          {
+  46            AVERAGE_TOUCH_DELTA_ARRAY
+  47          };
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =     18    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =     12    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  5 WARNING(S),  0 ERROR(S)

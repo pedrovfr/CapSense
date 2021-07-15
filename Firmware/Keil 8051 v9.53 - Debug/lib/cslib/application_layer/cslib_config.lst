@@ -1,0 +1,74 @@
+C51 COMPILER V9.60.0.0   CSLIB_CONFIG                                                      05/13/2020 14:41:06 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE CSLIB_CONFIG
+OBJECT MODULE PLACED IN .\lib\cslib\application_layer\cslib_config.OBJ
+COMPILER INVOKED BY: d:\SiliconLabs\SimplicityStudio\v4\developer\toolchains\keil_8051\9.60\BIN\C51.exe D:\SiliconLabs\S
+                    -implicityStudio\v4\developer\sdks\8051\v4.1.7\Lib\efm8_capsense\cslib_config.c OMF2 SMALL DEBUG OBJECTEXTEND ROM(LARGE) 
+                    -WARNINGLEVEL(2) FLOATFUZZY(3) OPTIMIZE(8,SPEED) INTVECTOR(0X0000) INTPROMOTE INCDIR(C:\Users\pedro\SimplicityStudio\v4_w
+                    -orkspace\Pedro_proj2_2\lib\efm8sb1\cslib\serial_interface;C:\Users\pedro\SimplicityStudio\v4_workspace\Pedro_proj2_2\lib
+                    -\efm8sb1\cslib\serial_interface_inc;C:\Users\pedro\SimplicityStudio\v4_workspace\Pedro_proj2_2\inc\config;C:\Users\pedro
+                    -\SimplicityStudio\v4_workspace\Pedro_proj2_2\inc;D:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Lib/efm8
+                    -_capsense;D:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/EFM8SB1/efm8_capsense/device_layer;D:/Si
+                    -liconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/shared/si8051Base;D:/SiliconLabs/SimplicityStudio/v4/de
+                    -veloper/sdks/8051/v4.1.7//Device/EFM8SB1/inc;D:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/EFM8S
+                    -B1/efm8_capsense/serial_interface) PRINT(.\lib\cslib\application_layer\cslib_config.lst) COND PAGEWIDTH(120) PAGELENGTH(
+                    -65) OBJECT(.\lib\cslib\application_layer\cslib_config.OBJ)
+
+line level    source
+
+   1          
+   2          #include "cslib_config.h"
+*** WARNING C317 IN LINE 46 OF C:\Users\pedro\SimplicityStudio\v4_workspace\Pedro_proj2_2\inc\config\cslib_config.h: att
+             -empt to redefine macro 'DEF_ACTIVE_MODE_PERIOD'
+*** WARNING C317 IN LINE 47 OF C:\Users\pedro\SimplicityStudio\v4_workspace\Pedro_proj2_2\inc\config\cslib_config.h: att
+             -empt to redefine macro 'DEF_SLEEP_MODE_PERIOD'
+   3          #include "cslib_hwconfig.h"
+*** WARNING C317 IN LINE 56 OF C:\Users\pedro\SimplicityStudio\v4_workspace\Pedro_proj2_2\inc\config\cslib_hwconfig.h: a
+             -ttempt to redefine macro 'ACTIVE_THRESHOLD_ARRAY'
+*** WARNING C317 IN LINE 63 OF C:\Users\pedro\SimplicityStudio\v4_workspace\Pedro_proj2_2\inc\config\cslib_hwconfig.h: a
+             -ttempt to redefine macro 'INACTIVE_THRESHOLD_ARRAY'
+*** WARNING C317 IN LINE 70 OF C:\Users\pedro\SimplicityStudio\v4_workspace\Pedro_proj2_2\inc\config\cslib_hwconfig.h: a
+             -ttempt to redefine macro 'AVERAGE_TOUCH_DELTA_ARRAY'
+   4          #include "cslib.h"
+   5          #include <si_toolchain.h>             // compiler declarations
+   6          
+   7          // Struct defined in sensor_node_routines.h.  Contains all state data for a
+   8          // sensor.
+   9          SI_SEGMENT_VARIABLE (CSLIB_node[DEF_NUM_SENSORS], SensorStruct_t, SI_SEG_XDATA);
+  10          
+  11          SI_SEGMENT_VARIABLE (CSLIB_numSensors, uint8_t, SI_SEG_DATA)                        = DEF_NUM_SENSORS;
+  12          SI_SEGMENT_VARIABLE (CSLIB_sensorBufferSize, uint8_t, SI_SEG_DATA)                  = DEF_SENSOR_BUFFER_SI
+             -ZE;
+  13          SI_SEGMENT_VARIABLE (CSLIB_buttonDebounce, uint8_t, SI_SEG_DATA)                    = DEF_BUTTON_DEBOUNCE;
+  14          SI_SEGMENT_VARIABLE (CSLIB_activeModePeriod, uint16_t, SI_SEG_DATA)                 = DEF_ACTIVE_MODE_PERI
+             -OD;
+  15          SI_SEGMENT_VARIABLE (CSLIB_sleepModePeriod, uint16_t, SI_SEG_DATA)                  = DEF_SLEEP_MODE_PERIO
+             -D;
+  16          SI_SEGMENT_VARIABLE (CSLIB_countsBeforeSleep, uint16_t, SI_SEG_DATA)                = DEF_COUNTS_BEFORE_SL
+             -EEP;
+  17          SI_SEGMENT_VARIABLE (CSLIB_freeRunSetting, uint8_t, SI_SEG_DATA)                    = DEF_FREE_RUN_SETTING
+             -;
+  18          SI_SEGMENT_VARIABLE (CSLIB_sleepModeEnable, uint8_t, SI_SEG_DATA)                   = DEF_SLEEP_MODE_ENABL
+             -E;
+  19          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =     42    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     11    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+   EDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.0.0   CSLIB_CONFIG                                                      05/13/2020 14:41:06 PAGE 2   
+
+   HDATA SIZE       =   ----    ----
+   XDATA CONST SIZE =   ----    ----
+   FAR CONST SIZE   =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  5 WARNING(S),  0 ERROR(S)

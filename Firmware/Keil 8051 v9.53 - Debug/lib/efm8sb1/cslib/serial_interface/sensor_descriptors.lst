@@ -1,0 +1,63 @@
+C51 COMPILER V9.60.0.0   SENSOR_DESCRIPTORS                                                07/15/2021 10:43:58 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE SENSOR_DESCRIPTORS
+OBJECT MODULE PLACED IN .\lib\efm8sb1\cslib\serial_interface\sensor_descriptors.OBJ
+COMPILER INVOKED BY: c:\SiliconLabs\SimplicityStudio\v4\developer\toolchains\keil_8051\9.60\BIN\C51.exe C:\SiliconLabs\S
+                    -implicityStudio\v4\developer\sdks\8051\v4.1.7\Device\EFM8SB1\efm8_capsense\serial_interface\sensor_descriptors.c OMF2 SM
+                    -ALL DEBUG OBJECTEXTEND ROM(LARGE) WARNINGLEVEL(2) FLOATFUZZY(3) OPTIMIZE(8,SPEED) INTVECTOR(0X0000) INTPROMOTE INCDIR(C:
+                    -\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\lib\efm8sb1\cslib\serial_interface;C:\Users\Pedro\Google Drive\UNICA
+                    -MP\Mestrado\Firmware\lib\efm8sb1\cslib\serial_interface_inc;C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\inc\co
+                    -nfig;C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\inc;C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4
+                    -.1.7//Lib/efm8_capsense;C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/EFM8SB1/efm8_capsense/devi
+                    -ce_layer;C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7//Device/shared/si8051Base;C:/SiliconLabs/Simplici
+                    -tyStudio/v4/developer/sdks/8051/v4.1.7//Device/EFM8SB1/inc;C:/SiliconLabs/SimplicityStudio/v4/developer/sdks/8051/v4.1.7
+                    -//Device/EFM8SB1/efm8_capsense/serial_interface) PRINT(.\lib\efm8sb1\cslib\serial_interface\sensor_descriptors.lst) COND
+                    - PAGEWIDTH(120) PAGELENGTH(65) OBJECT(.\lib\efm8sb1\cslib\serial_interface\sensor_descriptors.OBJ)
+
+line level    source
+
+   1          /**************************************************************************//**
+   2           * Copyright (c) 2015 by Silicon Laboratories Inc. All rights reserved.
+   3           *
+   4           * http://developer.silabs.com/legal/version/v11/Silicon_Labs_Software_License_Agreement.txt
+   5           *****************************************************************************/
+   6          
+   7          #include "cslib_hwconfig.h"
+*** WARNING C317 IN LINE 72 OF C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\inc\config\cslib_hwconfig.h: attemp
+             -t to redefine macro 'ACTIVE_THRESHOLD_ARRAY'
+*** WARNING C317 IN LINE 83 OF C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\inc\config\cslib_hwconfig.h: attemp
+             -t to redefine macro 'INACTIVE_THRESHOLD_ARRAY'
+*** WARNING C317 IN LINE 94 OF C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\inc\config\cslib_hwconfig.h: attemp
+             -t to redefine macro 'AVERAGE_TOUCH_DELTA_ARRAY'
+   8          #include <si_toolchain.h>
+   9          #include <stdio.h>
+  10          #include "cslib_sensor_descriptors.h"
+  11          #include "cslib_config.h"
+*** WARNING C317 IN LINE 38 OF C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\inc\config\cslib_config.h: attempt 
+             -to redefine macro 'DEF_NUM_SENSORS'
+*** WARNING C317 IN LINE 46 OF C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\inc\config\cslib_config.h: attempt 
+             -to redefine macro 'DEF_ACTIVE_MODE_PERIOD'
+*** WARNING C317 IN LINE 47 OF C:\Users\Pedro\Google Drive\UNICAMP\Mestrado\Firmware\inc\config\cslib_config.h: attempt 
+             -to redefine macro 'DEF_SLEEP_MODE_PERIOD'
+  12          
+  13          code char* sensorDescriptors[DEF_NUM_SENSORS] =
+  14          {
+  15           SENSOR_DESCRIPTOR_LIST
+*** ERROR C242 IN LINE 15 OF C:\SiliconLabs\SimplicityStudio\v4\developer\sdks\8051\v4.1.7\Device\EFM8SB1\efm8_capsense\
+             -serial_interface\sensor_descriptors.c: 'array[]': too many initializers
+  16          };
+  17          
+  18          void outputsensorDescriptors(void)
+  19          {
+  20   1         uint8_t index;
+  21   1         printf("*SENSOR_DESCRIPTORS ");
+  22   1         for(index = 0; index < DEF_NUM_SENSORS; index++)
+  23   1         {
+  24   2            printf("%s | ",sensorDescriptors[index]);
+  25   2         }
+  26   1         printf("\n");
+  27   1      }
+  28          
+
+C51 COMPILATION COMPLETE.  6 WARNING(S),  1 ERROR(S)
